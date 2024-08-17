@@ -23,7 +23,7 @@ export default class PauseMenu extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => {
         this.scene.stop("PauseMenu");
-        this.mainScene.scene.stop("main");
+        this.mainScene.scene.stop();
         this.scene.start("main-menu");
       });
 
@@ -46,7 +46,7 @@ export default class PauseMenu extends Phaser.Scene {
       const currentTime = this.time.now;
       if (currentTime - this.lastKeyPressTime > 250) {
         this.lastKeyPressTime = currentTime;
-        this.mainScene.scene.resume("main");
+        this.mainScene.scene.resume();
         this.scene.stop("PauseMenu");
         console.log("Reanude Game");
       }

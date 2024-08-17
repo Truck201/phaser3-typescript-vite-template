@@ -76,7 +76,7 @@ export default class MainMenu extends Phaser.Scene {
   }
 
   toGameScene() {
-    this.scene.start("main"); //Ir a escena Main
+    this.scene.start("eleccion"); //Ir a escena Main, eleccion
   }
 
   toOptionsScene() {

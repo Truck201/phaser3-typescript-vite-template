@@ -1,3 +1,4 @@
+import Eleccion from "./scenes/elegir_peli.js";
 import Game from "./scenes/game.js";
 import MainMenu from "./scenes/menu_principal.js";
 import Opciones from "./scenes/opciones.js";
@@ -21,7 +22,7 @@ const config = {
     // Only the first scene will be shown
     // Remember to import the scene before adding it to the list
     backgroundColor: '#5c5b5b',
-    scene: [Preload, MainMenu, Game, PauseMenu, Opciones],
+    scene: [Preload, MainMenu, Game, PauseMenu, Opciones, Eleccion],
   };
   
   // Create a new Phaser game instance
