@@ -5,9 +5,7 @@ export default class Game extends Phaser.Scene {
     this.lastKeyPressTime = 0;
   }
 
-  init() {
-    
-  }
+  init() {}
 
   create() {
     let width = this.scale.width;
@@ -26,12 +24,59 @@ export default class Game extends Phaser.Scene {
         this.scene.pause();
         console.log("Pause Game");
         this.scene.launch("PauseMenu", { mainScene: this });
-        
       }
     });
 
+    // Añadir Cuadro de Personaje Uno
+    // Dimensiones
+    let rectWidht = this.game.config.width / 7.8;
+    let rectHeight = this.game.config.height / 4.75;
+
+    // Posición
+    let rect1X = rectWidht / 1.75; // Posición ancho
+    let rect1Y = (this.game.config.height * 1) / 7.5; // Posicion alto
+    // Recuadro 1
+    let personaje1 = this.add.rectangle(
+      rect1X,
+      rect1Y,
+      rectWidht,
+      rectHeight,
+      0xbbbbbb
+    );
+
+    // Añadir Cuadro de Personaje Uno
+    // Posición
+    let rect2X = rectWidht * 7.23; // Posición ancho
+    let rect2Y = (this.game.config.height * 1) / 7.5; // Posicion alto
+    // Recuadro 2
+    let personaje2 = this.add.rectangle(
+      rect2X,
+      rect2Y,
+      rectWidht,
+      rectHeight,
+      0xbbbbbb
+    );
+
+    // Añadimos el televisor
+    // Posición
+    let teleX = this.game.config.width / 2
+    let teleY = this.game.config.height / 2 - 80
+    // Dimensiones
+    let teleWidth = teleX 
+    let teleHeight = this.game.config.height / 2.3
+    //Crear Televisor
+    let televisor = this.add.rectangle(
+      teleX,
+      teleY,
+      teleWidth,
+      teleHeight,
+      0xbbbbbb
+    )
+
+    
+    // Menu Button
     this.box = this.add
-      .text(20, 20, "Menu", {
+      .text(rectWidht * 1.2, 20, "Menu", {
         fontSize: "130px",
         backgroundColor: "#ffffff",
         color: "#000000",
@@ -47,12 +92,12 @@ export default class Game extends Phaser.Scene {
     const optionTexts = ["Opción 1", "Opción 2", "Opción 3"];
     for (let i = 0; i < optionTexts.length; i++) {
       let option = this.add
-        .text(20, 60 + i * 50, optionTexts[i], {
-          fontSize: "120px",
+        .text(rectWidht * 1.2, 60 + i * 45, optionTexts[i], {
+          fontSize: "100px",
           backgroundColor: "#ffffff",
           color: "#000000",
           padding: { x: 10, y: 5 },
-          border: "50px solid #000000",
+          border: "80px solid #000000",
         })
         .setInteractive();
       option.visible = false;
@@ -60,8 +105,6 @@ export default class Game extends Phaser.Scene {
       option.on("pointerdown", () => this.toggleOption(option));
       this.options.push(option);
     }
-
-    
   }
 
   update() {}
