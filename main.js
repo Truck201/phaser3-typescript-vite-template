@@ -1,4 +1,4 @@
-import Eleccion from "./scenes/elegir_peli.js";
+
 import Game from "./scenes/game.js";
 import MainMenu from "./scenes/menu_principal.js";
 import Opciones from "./scenes/opciones.js";
