@@ -9,7 +9,8 @@ const config = {
   type: Phaser.AUTO,
   width: window.innerWidth * 0.9, // Ajusta el ancho al 90% del ancho de la ventana
   height: window.innerHeight * 0.9, // Ajusta la altura al 90% de la altura de la ventana
-  
+  parent: "game-container", // Asegúrate de que el juego se inicialice en el contenedor correcto
+
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -35,4 +36,12 @@ window.game = new Phaser.Game(config);
 // Adjust the game size when the window is resized
 window.addEventListener("resize", () => {
   game.scale.resize(window.innerWidth * 0.9, window.innerHeight * 0.9);
+});
+
+// Add event listener for F11 key press
+window.addEventListener("keydown", (event) => {
+  if (event.key === "F11") {
+    event.preventDefault(); // Prevent the default action of F11
+    game.scale.resize(window.innerWidth * 0.9, window.innerHeight * 0.9);
+  }
 });

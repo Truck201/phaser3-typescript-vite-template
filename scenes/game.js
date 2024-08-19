@@ -36,7 +36,7 @@ export default class Game extends Phaser.Scene {
     let rect1X = rectWidht / 1.75; // Posición ancho
     let rect1Y = (this.game.config.height * 1) / 7.5; // Posicion alto
     // Recuadro 1
-    let personaje1 = this.add.rectangle(
+    let recuadro1 = this.add.rectangle(
       rect1X,
       rect1Y,
       rectWidht,
@@ -49,7 +49,7 @@ export default class Game extends Phaser.Scene {
     let rect2X = rectWidht * 7.23; // Posición ancho
     let rect2Y = (this.game.config.height * 1) / 7.5; // Posicion alto
     // Recuadro 2
-    let personaje2 = this.add.rectangle(
+    let recuadro2 = this.add.rectangle(
       rect2X,
       rect2Y,
       rectWidht,
@@ -64,8 +64,8 @@ export default class Game extends Phaser.Scene {
     // Dimensiones
     let teleWidth = teleX 
     let teleHeight = this.game.config.height / 2.3
-    //Crear Televisor
-    let televisor = this.add.rectangle(
+    // Crear Televisor
+    let television = this.add.rectangle(
       teleX,
       teleY,
       teleWidth,
@@ -73,7 +73,34 @@ export default class Game extends Phaser.Scene {
       0xbbbbbb
     )
 
-    
+    // Añadimos sillones, butacas !!
+    // Dimensiones
+    let armchairWidth = this.game.config.width / 11
+    let armchairHeight = this.game.config.height / 7
+    // Posición X
+    let armX = teleX / 2
+    // Crear sillones
+    for (let i = 0; i < 10; i++ ){ 
+      console.log("bucle")
+      if (i < 5) {
+        let armchair = this.add.rectangle(
+          armX + (i*(armchairWidth + 40)), // Ajustar por cada rectangulo
+          teleY * 1.88,
+          armchairWidth,
+          armchairHeight,
+          0xbbbbbb
+        )
+      } else {
+        let armchair = this.add.rectangle(
+          armX + (i*(armchairWidth + 40)), // Ajustar por cada rectangulo
+          teleY * 2.88,
+          armchairWidth,
+          armchairHeight,
+          0xbbbbbb
+        )
+      }
+    }
+
     // Menu Button
     this.box = this.add
       .text(rectWidht * 1.2, 20, "Menu", {
