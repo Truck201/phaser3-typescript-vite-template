@@ -5,8 +5,8 @@ export default class Game extends Phaser.Scene {
     this.lastKeyPressTime = 0;
   }
 
-  init(data) {
-    this.playerSelections = data.selections; // Recibir las selecciones de la escena anterior
+  init() {
+    
   }
 
   create() {
@@ -61,26 +61,7 @@ export default class Game extends Phaser.Scene {
       this.options.push(option);
     }
 
-    // Mostrar las selecciones de los jugadores
-    this.add.text(20, 400, `Jugador 1 seleccionó: ${this.playerSelections[0].join(', ')}`, { fontSize: "20px", fill: "#fff" });
-    this.add.text(20, 450, `Jugador 2 seleccionó: ${this.playerSelections[1].join(', ')}`, { fontSize: "20px", fill: "#fff" });
-  
-    // Acceder a los elementos seleccionados
-    const elementConfigs = [
-      { key: 'element1', animation: 'anim1' },
-      { key: 'element2', animation: 'anim2' },
-      // Agrega más configuraciones para los 20 elementos
-    ];
-
-    this.playerSelections[0].forEach(index => { 
-      let config = elementConfigs[index % elementConfigs.length];
-      this.add.sprite(100, 100, config.key).play(config.animation);
-    });
-
-    this.playerSelections[1].forEach(index => {
-      let config = elementConfigs[index % elementConfigs.length];
-      this.add.sprite(200, 100, config.key).play(config.animation);
-    });
+    
   }
 
   update() {}

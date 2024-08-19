@@ -22,7 +22,7 @@ const config = {
     // Only the first scene will be shown
     // Remember to import the scene before adding it to the list
     backgroundColor: '#5c5b5b',
-    scene: [Preload, MainMenu, Game, PauseMenu, Opciones, Eleccion],
+    scene: [Preload, MainMenu, Game, PauseMenu, Opciones],
   };
   
   // Create a new Phaser game instance
