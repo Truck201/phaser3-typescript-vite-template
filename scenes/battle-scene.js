@@ -23,7 +23,7 @@ export default class BattleScene extends Phaser.Scene {
     this.movingBar = this.add.rectangle(
       barr1Width,
       barraY,
-      5,
+      4,
       barWidth,
       0xff0000
     );
@@ -34,9 +34,9 @@ export default class BattleScene extends Phaser.Scene {
     this.movingBar2 = this.add.rectangle(
       barr2Width,
       barraY,
-      5,
+      4,
       barWidth,
-      0x03d3c7
+      0x2161ca
     );
     this.isMovingRight2 = false;
 
@@ -44,14 +44,18 @@ export default class BattleScene extends Phaser.Scene {
     this.score = 0;
     this.scoreText = this.add.text((width * 8) / 10, 360, "Score: 0", {
       fontSize: "32px",
-      fill: "#fff",
+      fill: "#ff0000",
+      backgroundColor: "#ffffff",
+      border: "60px solid #000000",
     });
 
     // Añadir un texto para mostrar los puntos 2
     this.score2 = 0;
     this.scoreText2 = this.add.text((width * 1) / 30, 360, "Score: 0", {
       fontSize: "32px",
-      fill: "#fff",
+      fill: "#2161ca",
+      backgroundColor: "#ffffff",
+      border: "60px solid #000000",
     });
 
     // Inicializar la velocidad de la barra pequeña 1
