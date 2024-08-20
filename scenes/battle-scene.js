@@ -16,7 +16,7 @@ export default class BattleScene extends Phaser.Scene {
 
     this.noCorrect = this.add.rectangle(barraX, barraY, 60, barWidth, 0x8600fd); // Barra color
 
-    this.correct = this.add.rectangle(barraX, barraY, 25, barWidth, 0x42f81d); // Barra acierto
+    this.correct = this.add.rectangle(barraX, barraY, 23, barWidth, 0x42f81d); // Barra acierto
 
     // Crear la barra más pequeña que se mueve 1
     let barr1Width = barraX - 120; // Posición Barra chica 1
@@ -66,8 +66,17 @@ export default class BattleScene extends Phaser.Scene {
 
     // Detectar la pulsación de la tecla 'Enter'
     this.input.keyboard.on("keydown-ENTER", this.checkPosition, this);
-
+    // Detectar la pulsación de la tecla 'Space'
     this.input.keyboard.on("keydown-SPACE", this.checkPosition2, this);
+
+    // Evento para el segundo juego
+    this.time.addEvent({
+      delay: 2000,
+      loop: true,
+      callback: () => {
+        null;
+      },
+    });
   }
 
   update() {
@@ -107,12 +116,17 @@ export default class BattleScene extends Phaser.Scene {
 
   checkPosition() {
     const centerX = this.mainBar.x;
-    const tolerance = 20;
-
+    const tolerance = 23;
     if (Math.abs(this.movingBar.x - centerX) < tolerance) {
-      this.score++;
-      this.scoreText.setText("Score: " + this.score);
-      this.movingSpeed += 3.5;
+      if (this.score < 2) {
+        this.score++;
+        this.scoreText.setText("Score: " + this.score);
+        this.movingSpeed += 3.5;
+      } else {
+        this.showWinnerText("Jugador 1") // Function
+        this.movingSpeed2 = 0
+        this.movingSpeed = 0
+      }
     } else {
       this.score = 0;
       this.scoreText.setText("Score: " + this.score);
@@ -122,16 +136,46 @@ export default class BattleScene extends Phaser.Scene {
 
   checkPosition2() {
     const centerX = this.mainBar.x;
-    const tolerance = 20;
-
+    const tolerance = 23;
     if (Math.abs(this.movingBar2.x - centerX) < tolerance) {
-      this.score2++;
-      this.scoreText2.setText("Score: " + this.score2);
-      this.movingSpeed2 += 3.5;
+      if (this.score2 < 2) {
+        this.score2++;
+        this.scoreText2.setText("Score: " + this.score2);
+        this.movingSpeed2 += 3.5;
+      } else {
+        this.showWinnerText("Jugador 2"); // Function
+        this.movingSpeed2 = 0
+        this.movingSpeed = 0
+      }
     } else {
       this.score2 = 0;
       this.scoreText2.setText("Score: " + this.score2);
       this.movingSpeed2 = 3.4;
     }
   }
+
+  showWinnerText(player) {
+    const width = this.game.config.width;
+    const height = this.game.config.height;
+    console.log("adasm")
+    this.winnerText = this.add.text(width / 2, height / 2 - 90, `${player} ha ganado el CONTROL`, {
+      fontSize: "50px",
+      fill: "#FFD700", // Color Texto
+      backgroundColor: "#000000",
+      padding: { x: 10, y: 5 },
+      border: "60px solid #000000",
+    }).setOrigin(0.5);
+
+    // Ir a la escena del segundo juego.
+    this.time.delayedCall(3000, () => {
+      this.winnerText.setVisible(false);
+      this.scene.stop();
+
+    });
+  }
+  
+  secondGame() {
+    
+  }
+
 }
