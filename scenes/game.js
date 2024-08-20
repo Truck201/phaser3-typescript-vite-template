@@ -8,6 +8,7 @@ export default class Game extends Phaser.Scene {
   init() {}
 
   create() {
+    let barra = true
     let width = this.scale.width;
     let height = this.scale.height;
 
@@ -26,6 +27,18 @@ export default class Game extends Phaser.Scene {
         this.scene.launch("PauseMenu", { mainScene: this });
       }
     });
+
+    this.input.keyboard.on("keydown-A", () => {
+      console.log("enter")
+      // Atacar 
+      if (barra) {
+        this.scene.launch("battle-scene", {});
+        barra = false
+      } else {
+        this.scene.stop("battle-scene", {});
+        barra = true
+      }
+    })
 
     // Añadir Cuadro de Personaje Uno
     // Dimensiones

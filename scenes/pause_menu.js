@@ -47,6 +47,7 @@ export default class PauseMenu extends Phaser.Scene {
       if (currentTime - this.lastKeyPressTime > 250) {
         this.lastKeyPressTime = currentTime;
         this.mainScene.scene.resume();
+        
         this.scene.stop("PauseMenu");
         console.log("Reanude Game");
       }

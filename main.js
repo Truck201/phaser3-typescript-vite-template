@@ -3,6 +3,7 @@ import MainMenu from "./scenes/menu_principal.js";
 import Opciones from "./scenes/opciones.js";
 import PauseMenu from "./scenes/pause_menu.js";
 import Preload from "./scenes/preload.js";
+import BattleScene from "./scenes/battle-scene.js";
 
 // Create a new Phaser config object
 const config = {
@@ -27,7 +28,7 @@ const config = {
   // Only the first scene will be shown
   // Remember to import the scene before adding it to the list
   backgroundColor: "#5c5b5b",
-  scene: [Preload, MainMenu, Game, PauseMenu, Opciones],
+  scene: [Preload, MainMenu, Game, PauseMenu, Opciones, BattleScene],
 };
 
 // Create a new Phaser game instance
