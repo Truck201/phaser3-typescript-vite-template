@@ -80,6 +80,7 @@ export default class Game extends Phaser.Scene {
     // Posición X
     let armX = teleX / 2
     // Crear sillones
+    let n = 0
     for (let i = 0; i < 10; i++ ){ 
       console.log("bucle")
       if (i < 5) {
@@ -92,12 +93,13 @@ export default class Game extends Phaser.Scene {
         )
       } else {
         let armchair = this.add.rectangle(
-          armX + (i*(armchairWidth + 40)), // Ajustar por cada rectangulo
-          teleY * 2.88,
+          armX + (n*(armchairWidth + 40)), // Ajustar por cada rectangulo
+          teleY * 2.35,
           armchairWidth,
           armchairHeight,
           0xbbbbbb
         )
+        n = n + 1;
       }
     }
 
