@@ -8,7 +8,7 @@ export default class Game extends Phaser.Scene {
   init() {}
 
   create() {
-    let barra = true
+    let barra = true;
     let width = this.scale.width;
     let height = this.scale.height;
 
@@ -29,16 +29,16 @@ export default class Game extends Phaser.Scene {
     });
 
     this.input.keyboard.on("keydown-A", () => {
-      console.log("enter")
-      // Atacar 
+      console.log("enter");
+      // Atacar
       if (barra) {
         this.scene.launch("battle-scene", {});
-        barra = false
+        barra = false;
       } else {
         this.scene.stop("battle-scene", {});
-        barra = true
+        barra = true;
       }
-    })
+    });
 
     // Añadir Cuadro de Personaje Uno
     // Dimensiones
@@ -72,11 +72,11 @@ export default class Game extends Phaser.Scene {
 
     // Añadimos el televisor
     // Posición
-    let teleX = this.game.config.width / 2
-    let teleY = this.game.config.height / 2 - 80
+    let teleX = this.game.config.width / 2;
+    let teleY = this.game.config.height / 2 - 80;
     // Dimensiones
-    let teleWidth = teleX 
-    let teleHeight = this.game.config.height / 2.3
+    let teleWidth = teleX;
+    let teleHeight = this.game.config.height / 2.3;
     // Crear Televisor
     let television = this.add.rectangle(
       teleX,
@@ -84,37 +84,58 @@ export default class Game extends Phaser.Scene {
       teleWidth,
       teleHeight,
       0xbbbbbb
-    )
+    );
 
     // Añadimos sillones, butacas !!
     // Dimensiones
-    let armchairWidth = this.game.config.width / 11
-    let armchairHeight = this.game.config.height / 7
+    let armchairWidth = this.game.config.width / 11;
+    let armchairHeight = this.game.config.height / 7;
     // Posición X
-    let armX = teleX / 2
+    let armX = teleX / 2;
     // Crear sillones
-    let n = 0
-    for (let i = 0; i < 10; i++ ){ 
-      console.log("bucle")
+    let n = 0;
+    for (let i = 0; i < 10; i++) {
+      console.log("bucle");
       if (i < 5) {
         let armchair = this.add.rectangle(
-          armX + (i*(armchairWidth + 40)), // Ajustar por cada rectangulo
+          armX + i * (armchairWidth + 40), // Ajustar por cada rectangulo
           teleY * 1.88,
           armchairWidth,
           armchairHeight,
           0xbbbbbb
-        )
+        );
       } else {
         let armchair = this.add.rectangle(
-          armX + (n*(armchairWidth + 40)), // Ajustar por cada rectangulo
+          armX + n * (armchairWidth + 40), // Ajustar por cada rectangulo
           teleY * 2.35,
           armchairWidth,
           armchairHeight,
           0xbbbbbb
-        )
+        );
         n = n + 1;
       }
     }
+
+    // Texto de los personajes
+    this.personaje1 = this.add.text((width * 2.5) / 80, 160, "Jugador 1", {
+      fontSize: "16px",
+      fontFamily: "Arial Black, Gadget, sans-serif",
+      fill: "#2161ca", // azul
+      fontWeight: "bold",
+      padding: { x: 6, y: 3 },
+      backgroundColor: "#ffffff",
+      border: "60px solid #000000",
+    });
+
+    this.personaje2 = this.add.text((width * 8.91) / 10, 160, "Jugador 2", {
+      fontSize: "16px",
+      fontFamily: "Arial Black, Gadget, sans-serif",
+      fill: "#ff0000", // rojo
+      fontWeight: "bold",
+      padding: { x: 6, y: 3 },
+      backgroundColor: "#ffffff",
+      border: "60px solid #000000",
+    });
 
     // Menu Button
     this.box = this.add
