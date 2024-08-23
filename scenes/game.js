@@ -40,97 +40,98 @@ export default class Game extends Phaser.Scene {
       }
     });
 
+    const graphics = this.add.graphics();
     // Añadir Cuadro de Personaje Uno
     // Dimensiones
-    let rectWidht = this.game.config.width / 7.8;
-    let rectHeight = this.game.config.height / 4.75;
+    let rectWidht = width / 7.8;
+    let rectHeight = height / 4.75;
 
     // Posición
-    let rect1X = rectWidht / 1.75; // Posición ancho
-    let rect1Y = (this.game.config.height * 1) / 7.5; // Posicion alto
+    let rect1X = rectWidht / 2; // Posición ancho
+    let rect1Y = (height * 1) / 10; // Posicion alto
     // Recuadro 1
     let recuadro1 = this.add.rectangle(
       rect1X,
       rect1Y,
       rectWidht,
       rectHeight,
-      0xbbbbbb
+      0xbbbbbb // Blanco - Plateado
     );
 
     // Añadir Cuadro de Personaje Uno
     // Posición
-    let rect2X = rectWidht * 7.23; // Posición ancho
-    let rect2Y = (this.game.config.height * 1) / 7.5; // Posicion alto
+    let rect2X = rectWidht / 0.136; // Posición ancho
+    let rect2Y = (height * 1) / 10; // Posicion alto
     // Recuadro 2
     let recuadro2 = this.add.rectangle(
       rect2X,
       rect2Y,
       rectWidht,
       rectHeight,
-      0xbbbbbb
+      0xbbbbbb // Blanco - Plateado
     );
 
     // Añadimos el televisor
-    // Posición
-    let teleX = this.game.config.width / 2;
-    let teleY = this.game.config.height / 2 - 80;
     // Dimensiones
-    let teleWidth = teleX;
-    let teleHeight = this.game.config.height / 2.3;
+    let teleWidth = width / 1.7;
+    let teleHeight = height / 2.3;
+    // Posición
+    let teleX = width / 2;
+    let teleY = height / 2 - 60;
     // Crear Televisor
-    let television = this.add.rectangle(
+    this.add.rectangle(
       teleX,
       teleY,
       teleWidth,
       teleHeight,
-      0xbbbbbb
+      0xbbbbbb // Blanco - Plateado
     );
 
-    // Añadimos sillones, butacas !!
+    // Añadimos sillones, butacas !! En los Laterales
     // Dimensiones
-    let armchairWidth = this.game.config.width / 11;
-    let armchairHeight = this.game.config.height / 7;
+    let armchairWidth = width / 11;
+    let armchairHeight = height / 7.5;
     // Posición X
-    let armX = teleX / 2;
+    let armX = width / 5.5
     // Crear sillones
     let n = 0;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 14; i++) {
       console.log("bucle");
-      if (i < 5) {
+      if (i < 7) {
         let armchair = this.add.rectangle(
-          armX + i * (armchairWidth + 40), // Ajustar por cada rectangulo
-          teleY * 1.88,
+          armX + i * (armchairWidth + 20), // Ajustar por cada rectangulo
+          teleY * 1.77,
           armchairWidth,
           armchairHeight,
-          0xbbbbbb
+          0xbbbbbb // Blanco - Plateado
         );
       } else {
         let armchair = this.add.rectangle(
-          armX + n * (armchairWidth + 40), // Ajustar por cada rectangulo
-          teleY * 2.35,
+          armX + n * (armchairWidth + 20), // Ajustar por cada rectangulo
+          teleY * 2.18,
           armchairWidth,
           armchairHeight,
-          0xbbbbbb
+          0xbbbbbb // Blanco - Plateado
         );
         n = n + 1;
       }
     }
 
     // Texto de los personajes
-    this.personaje1 = this.add.text((width * 2.5) / 80, 160, "Jugador 1", {
+    this.personaje1 = this.add.text(0, height / 4.88, "Jugador 1", {
       fontSize: "16px",
       fontFamily: "Arial Black, Gadget, sans-serif",
-      fill: "#2161ca", // azul
+      fill: "#4b5bab", // AZUL
       fontWeight: "bold",
       padding: { x: 6, y: 3 },
       backgroundColor: "#ffffff",
       border: "60px solid #000000",
     });
 
-    this.personaje2 = this.add.text((width * 8.91) / 10, 160, "Jugador 2", {
-      fontSize: "16px",
+    this.personaje2 = this.add.text(width /1.09 , height / 4.88, "Jugador 2", {
+      fontSize: "18px",
       fontFamily: "Arial Black, Gadget, sans-serif",
-      fill: "#ff0000", // rojo
+      fill: "#b0305c", // ROJO
       fontWeight: "bold",
       padding: { x: 6, y: 3 },
       backgroundColor: "#ffffff",
@@ -139,7 +140,7 @@ export default class Game extends Phaser.Scene {
 
     // Menu Button
     this.box = this.add
-      .text(rectWidht * 1.2, 20, "Menu", {
+      .text(5, height -45, "Menu", {
         fontSize: "130px",
         backgroundColor: "#ffffff",
         color: "#000000",
@@ -155,7 +156,7 @@ export default class Game extends Phaser.Scene {
     const optionTexts = ["Opción 1", "Opción 2", "Opción 3"];
     for (let i = 0; i < optionTexts.length; i++) {
       let option = this.add
-        .text(rectWidht * 1.2, 60 + i * 45, optionTexts[i], {
+        .text(5 , (height -66) + i * -42, optionTexts[i], {
           fontSize: "100px",
           backgroundColor: "#ffffff",
           color: "#000000",
@@ -182,7 +183,7 @@ export default class Game extends Phaser.Scene {
       if (option.visible) {
         this.tweens.add({
           targets: option,
-          y: option.y - 20,
+          y: option.y + 20,
           alpha: 0,
           duration: 500,
           onComplete: () => option.setVisible(false),
@@ -191,7 +192,7 @@ export default class Game extends Phaser.Scene {
         option.setVisible(true);
         this.tweens.add({
           targets: option,
-          y: option.y + 20,
+          y: option.y - 20,
           alpha: 1,
           duration: 500,
         });

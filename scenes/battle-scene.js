@@ -12,9 +12,9 @@ export default class BattleScene extends Phaser.Scene {
     // Crear la barra principal
     let barraX = (width * 1) / 2; // Posición Barra en X
     let barraY = (height * 4.3) / 5; // Posición de alto en las barras Y
-    this.mainBar = this.add.rectangle(barraX, barraY, 240, barWidth, 0xff0ebd);
+    this.mainBar = this.add.rectangle(barraX, barraY, 240, barWidth, 0x272736); 
 
-    this.noCorrect = this.add.rectangle(barraX, barraY, 60, barWidth, 0x8600fd); // Barra color
+    this.noCorrect = this.add.rectangle(barraX, barraY, 60, barWidth, 0xffe478); // Barra color
 
     this.correct = this.add.rectangle(barraX, barraY, 23, barWidth, 0x42f81d); // Barra acierto
 
@@ -25,7 +25,7 @@ export default class BattleScene extends Phaser.Scene {
       barraY,
       4,
       barWidth,
-      0x2161ca  // AZUL 
+      0x4b5bab  // AZUL 
     );
     this.isMovingRight = true;
 
@@ -36,7 +36,7 @@ export default class BattleScene extends Phaser.Scene {
       barraY,
       4,
       barWidth,
-      0xff0000 // ROJO 
+      0xb0305c // ROJO 
     );
     this.isMovingRight2 = false;
 
@@ -45,7 +45,7 @@ export default class BattleScene extends Phaser.Scene {
     this.scoreText = this.add.text((width * 1) / 30, 360, "Score: 0", {
       fontSize: "28px",
       fontFamily: "Arial Black, Gadget, sans-serif",
-      fill: "#2161ca", //  AZUL
+      fill: "#4b5bab", //  AZUL
       fontWeight: "bold",
       padding: { x: 6, y: 3 },
       backgroundColor: "#ffffff",
@@ -57,7 +57,7 @@ export default class BattleScene extends Phaser.Scene {
     this.scoreText2 = this.add.text((width * 8.3) / 10, 360, "Score: 0", {
       fontSize: "28px",
       fontFamily: "Arial Black, Gadget, sans-serif",
-      fill: "#ff0000", // ROJO 
+      fill: "#b0305c", // ROJO 
       fontWeight: "bold",
       padding: { x: 6, y: 3 },
       backgroundColor: "#ffffff",
@@ -122,7 +122,7 @@ export default class BattleScene extends Phaser.Scene {
 
   checkPosition2() {
     const centerX = this.mainBar.x;
-    const tolerance = 20;
+    const tolerance = 10;
     if (Math.abs(this.movingBar.x - centerX) < tolerance) {
       if (this.score < 2) {
         this.score++;
@@ -142,7 +142,7 @@ export default class BattleScene extends Phaser.Scene {
 
   checkPosition() {
     const centerX = this.mainBar.x;
-    const tolerance = 20;
+    const tolerance = 10;
     if (Math.abs(this.movingBar2.x - centerX) < tolerance) {
       if (this.score2 < 2) {
         this.score2++;

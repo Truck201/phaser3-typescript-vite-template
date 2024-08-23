@@ -7,13 +7,13 @@ export default class MainMenu extends Phaser.Scene {
     let height = this.scale.height; //Definir la mitad del Alto
     let miImagen; //Definir una Variable en la escena
 
+    //Title
+    this.background = this.add.sprite(width / 2, height / 2, "game-image").setScale(2);
+
     //Button
-    miImagen = this.add.text(100, 240, 'Play', { fontSize: '27px', fill: '#fff' });
+    miImagen = this.add.text(100, 240, 'Play', { fontSize: '33px', fill: '#fff' });
     //this.add.image(width / 2, height / 2, "").setScale(0.15);
     miImagen.setInteractive();
-
-    //Title
-    this.add.sprite(width / 2, height / 4 + 10, "").setScale(0.6);
 
     //Button Animations Hover, Down, Out
     miImagen.on("pointerover", () => {
@@ -33,10 +33,10 @@ export default class MainMenu extends Phaser.Scene {
       console.log("active");
       // this.add.image(width / 2, height / 2, "").setScale(0.37); //Explosión
       this.time.addEvent({
-        delay: 1000, // demora 1 segundo en iniciar
+        delay: 900, // demora 1 segundo en iniciar
         loop: true,
         callback: () => {
-          this.toGameScene(); //Llama la escena Main
+          this.transitionToNextScene(); //Llama la escena Main
         },
       });
     });
@@ -75,11 +75,19 @@ export default class MainMenu extends Phaser.Scene {
 
   }
 
-  toGameScene() {
-    this.scene.start("main"); //Ir a escena Main
-  }
 
   toOptionsScene() {
     this.scene.start("opciones_scene"); //Ir a escena Opciones
   }
+
+  transitionToNextScene() {
+    // Crear el efecto de zoom out
+    this.cameras.main.zoomTo(0.4179, 1300); // Reducir el zoom en 1 segundo (1000 ms)
+
+    // Esperar un poco antes de iniciar la siguiente escena
+    this.time.delayedCall(1500, () => {
+      this.scene.start("main"); //Ir a escena Main
+    });
+  }
+
 }
