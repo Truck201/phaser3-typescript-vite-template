@@ -50,6 +50,18 @@ export default class BattleScene extends Phaser.Scene {
 
       // Añadir el rectángulo al array
       this.noCorrectRects.push(rect);
+
+      // Crear el rectángulo pequeño en medio de la barra principal
+      this.collectibleRect = this.add.rectangle(
+        keysX, // Posición en X centrada
+        barraY + 9, // Misma posición Y que la barra principal
+        20, // Ancho del rectángulo
+        20, // Alto del rectángulo
+        0xff0000 // Color rojo para que sea visible
+      );
+
+      // Añadir el recolectable al array
+      this.collectibles.push(this.collectibleRect);
     }
 
     // Crear la barra más pequeña que se mueve 1
@@ -103,7 +115,7 @@ export default class BattleScene extends Phaser.Scene {
 
     // Inicializar la velocidad de la barra pequeña 2 Roja
     this.movingSpeed2 = 3.4;
-    
+
     // Evento para el segundo juego
     this.time.addEvent({
       delay: 2000,
@@ -113,12 +125,62 @@ export default class BattleScene extends Phaser.Scene {
       },
     });
 
+    // Inicializar las teclas para el manejo de eventos
+    this.keySpace = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
+    this.keyEnter = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.ENTER
+    );
+
+    // Detectar la pulsación de la tecla 'SPACE'
+    this.keySpace.on("down", () => this.collectItem(this.movingBar));
+    // Detectar la pulsación de la tecla 'ENTER'
+    this.keyEnter.on("down", () => this.collectItem(this.movingBar2));
+
+    // Añadir detección de colisión para recolectables
+    this.physics.add.overlap(
+      this.movingBar,
+      this.collectibles,
+      this.collectItem,
+      null,
+      this
+    );
+    this.physics.add.overlap(
+      this.movingBar2,
+      this.collectibles,
+      this.collectItem,
+      null,
+      this
+    );
   }
 
   update() {
     this.movimientoBarra1();
     this.movimientoBarra2();
     this.chequearBarra();
+  }
+
+  collectItem(movingBar) {
+    // Buscar el recolectable que está en la posición de la barra móvil
+    let collectible = this.collectibles.find((c) =>
+      Phaser.Geom.Intersects.RectangleToRectangle(
+        movingBar.getBounds(),
+        c.getBounds()
+      )
+    );
+
+    if (collectible && !collectible.isDestroyed) {
+      collectible.isDestroyed = true; // Marcar el recolectable como destruido
+      collectible.destroy(); // Destruir el recolectable
+      if (movingBar === this.movingBar) {
+        this.score++; // Incrementar el puntaje del jugador 1
+        this.scoreText.setText("Score: " + this.score);
+      } else if (movingBar === this.movingBar2) {
+        this.score2++; // Incrementar el puntaje del jugador 2
+        this.scoreText2.setText("Score: " + this.score2);
+      }
+    }
   }
 
   movimientoBarra1() {
