@@ -8,6 +8,9 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+// Configurar la carpeta 'public' como estática
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
