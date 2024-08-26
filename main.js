@@ -1,9 +1,9 @@
-import Game from "./src/client/scenes/game.js";
-import MainMenu from "./src/client/scenes/menu_principal.js";
-import Opciones from "./src/client/scenes/opciones.js";
-import PauseMenu from "./src/client/scenes/pause_menu.js";
-import Preload from "./src/client/scenes/preload.js";
-import BattleScene from "./src/client/scenes/battle-scene.js";
+import Game from "./scenes/game.js";
+import MainMenu from "./scenes/menu_principal.js";
+import Opciones from "./scenes/opciones.js";
+import PauseMenu from "./scenes/pause_menu.js";
+import Preload from "./scenes/preload.js";
+import BattleScene from "./scenes/battle-scene.js";
 
 // Create a new Phaser config object
 const config = {

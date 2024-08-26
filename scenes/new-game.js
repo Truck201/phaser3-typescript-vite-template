@@ -11,7 +11,6 @@ export default class NewGame extends Phaser.Scene {
 
     create() {
 
-      
     }
 
   

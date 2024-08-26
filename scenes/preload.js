@@ -8,14 +8,12 @@ export default class Preload extends Phaser.Scene {
         // Cargar Fonts
         this.load.bitmapFont('pixelFont', 'assets/font/font.png', 'assets/font/font.fnt');
         // Cajas del menu principal
-        this.load.image('box', './public/assets/menu-art.png');
-        this.load.image('button', './public/assets/menu-art.png');
+        this.load.image('box', './public/assets/azul_hoja.png');
+
         this.load.image('game-image', './public/assets/gackground.png');
         //this.load.image('image-name', './public/assets/');
 
-        // Escenario Game
-        
-        
+        // Escenario Game 
     }
 
     update() {

@@ -41,7 +41,6 @@ export default class MainMenu extends Phaser.Scene {
       });
     });
 
-
     let options; // Botón de opciones
 
     //Button
