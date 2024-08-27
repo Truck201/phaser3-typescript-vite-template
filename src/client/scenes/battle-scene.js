@@ -1,4 +1,5 @@
 // scenes/BattleScene.js
+
 export default class BattleScene extends Phaser.Scene {
   constructor() {
     super("battle-scene");
@@ -14,9 +15,20 @@ export default class BattleScene extends Phaser.Scene {
     let barraY = (height * 4.3) / 5; // Posición de alto en las barras Y
     this.mainBar = this.add.rectangle(barraX, barraY, 840, barHeigth, 0x272736);
 
-    const myColors = [0x5f574f, 0xfff1e8, 0x121213]; // 0 GRIS , 1 BLANCO, 2 NEGRO ,
+    const myColors = [0x5f574f, 0xfff1e8, 0x121213, 0xb0305c, 0x4b5bab]; // 0 GRIS , 1 BLANCO, 2 NEGRO , 3 ROJO, 4 AZUL ;
     let color1 = true;
     let border = 30.2;
+
+    // Array para los sprites, los porolocos de colores
+    const pororoes = [
+      "pororo-chico.v1",
+      "pororo-chico.v2",
+      "pororo-chico.v3",
+      "pororo-chico.v4",
+      "pororo-chico.v5",
+      "pororo-chico.v6",
+      "pororo-chico.v7",
+    ];
 
     // Array para almacenar los rectángulos de colores
     this.noCorrectRects = [];
@@ -51,17 +63,38 @@ export default class BattleScene extends Phaser.Scene {
       // Añadir el rectángulo al array
       this.noCorrectRects.push(rect);
 
-      // Crear el rectángulo pequeño en medio de la barra principal
-      this.collectibleRect = this.add.rectangle(
-        keysX, // Posición en X centrada
-        barraY + 9, // Misma posición Y que la barra principal
-        20, // Ancho del rectángulo
-        20, // Alto del rectángulo
-        0xff0000 // Color rojo para que sea visible
-      );
-      
+      // Seleccionar un sprite aleatorio del array
+      let randomSprite = Phaser.Math.RND.pick(pororoes);
+
+      // Crear el pororó PEQUEÑO en medio de la barra principal
+      this.collectibleRect = this.physics.add
+        .sprite(
+          keysX, // Posición en X centrada
+          barraY - 25, // Misma posición Y que la barra principal
+          randomSprite // Random de un array
+        )
+        .setScale(1.4)
+        .setSize(17, 12);
+
+      // Objeto inamovible
+      this.collectibleRect.setImmovable(true);
+      // Evitar la acción de la gravedad
+      this.collectibleRect.body.allowGravity = false;
+
       // Añadir el recolectable al array
       this.collectibles.push(this.collectibleRect);
+
+      // Agregar pororó GIGANTE
+      this.addBigOne = this.physics.add
+        .sprite(keysX, barraY - 60, "pororo-grande.v1")
+        .setScale(1.8)
+        .setSize(24, 19);
+
+      // Objeto inamovible
+      this.addBigOne.setImmovable(true);
+      // Evitar la acción de la gravedad
+      this.addBigOne.body.allowGravity = false;
+
     }
 
     // Crear la barra más pequeña que se mueve 1
@@ -71,7 +104,7 @@ export default class BattleScene extends Phaser.Scene {
       barraY,
       20,
       barHeigth + 15,
-      0x4b5bab // AZUL
+      myColors[3] // ROJO
     );
     this.isMovingRight = true;
 
@@ -82,7 +115,7 @@ export default class BattleScene extends Phaser.Scene {
       barraY,
       20,
       barHeigth + 15,
-      0xb0305c // ROJO
+      myColors[4] // AZUL
     );
     this.isMovingRight2 = false;
 
@@ -91,7 +124,7 @@ export default class BattleScene extends Phaser.Scene {
     this.scoreText = this.add.text((width * 1) / 30, 360, "Score: 0", {
       fontSize: "28px",
       fontFamily: "Arial Black, Gadget, sans-serif",
-      fill: "#4b5bab", //  AZUL
+      fill: "#b0305c", // ROJO
       fontWeight: "bold",
       padding: { x: 6, y: 3 },
       backgroundColor: "#ffffff",
@@ -103,7 +136,7 @@ export default class BattleScene extends Phaser.Scene {
     this.scoreText2 = this.add.text((width * 8.3) / 10, 360, "Score: 0", {
       fontSize: "28px",
       fontFamily: "Arial Black, Gadget, sans-serif",
-      fill: "#b0305c", // ROJO
+      fill: "#4b5bab", // AZUL
       fontWeight: "bold",
       padding: { x: 6, y: 3 },
       backgroundColor: "#ffffff",

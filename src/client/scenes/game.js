@@ -1,6 +1,6 @@
 export default class Game extends Phaser.Scene {
   constructor() {
-    super("main");
+    super('main');
     this.isPaused = false;
     this.lastKeyPressTime = 0;
   }
@@ -15,27 +15,27 @@ export default class Game extends Phaser.Scene {
     //Agregar los cursores
     this.cursor = this.input.keyboard.createCursorKeys();
 
-    this.input.keyboard.on("keydown-ESC", () => {
+    this.input.keyboard.on('keydown-ESC', () => {
       const currentTime = this.time.now;
-      console.log("pres scape");
+      console.log('pres scape');
       // Verificar si ha pasado suficiente tiempo desde la última pulsación
       if (currentTime - this.lastKeyPressTime > 250) {
         // 700 ms de delay
         this.lastKeyPressTime = currentTime;
         this.scene.pause();
-        console.log("Pause Game");
-        this.scene.launch("PauseMenu", { mainScene: this });
+        console.log('Pause Game');
+        this.scene.launch('PauseMenu', { mainScene: this });
       }
     });
 
-    this.input.keyboard.on("keydown-A", () => {
-      console.log("enter");
+    this.input.keyboard.on('keydown-Q', () => {
+      console.log('enter');
       // Atacar
       if (barra) {
-        this.scene.launch("battle-scene", {});
+        this.scene.launch('battle-scene', {});
         barra = false;
       } else {
-        this.scene.stop("battle-scene", {});
+        this.scene.stop('battle-scene', {});
         barra = true;
       }
     });
@@ -50,26 +50,33 @@ export default class Game extends Phaser.Scene {
     let rect1X = rectWidht / 2; // Posición ancho
     let rect1Y = (height * 1) / 10; // Posicion alto
     // Recuadro 1
-    let recuadro1 = this.add.rectangle(
-      rect1X,
-      rect1Y,
-      rectWidht,
-      rectHeight,
-      0xbbbbbb // Blanco - Plateado
-    );
+    const recuadro1 = this.physics.add
+      .sprite(rect1X, rect1Y, 'mimbo-pj1')
+      .setScale(2.3)
+      .setSize(20, 32)
+      .setOffset(25, -1)
+      .setImmovable(true);
 
-    // Añadir Cuadro de Personaje Uno
+    // Objeto inamovible
+    recuadro1.setImmovable(true);
+    // Evitar la acción de la gravedad
+    recuadro1.body.allowGravity = false;
+
+    // Añadir Cuadro de Personaje DOS
     // Posición
     let rect2X = rectWidht / 0.136; // Posición ancho
     let rect2Y = (height * 1) / 10; // Posicion alto
     // Recuadro 2
-    let recuadro2 = this.add.rectangle(
-      rect2X,
-      rect2Y,
-      rectWidht,
-      rectHeight,
-      0xbbbbbb // Blanco - Plateado
-    );
+    const recuadro2 = this.physics.add
+      .sprite(rect2X, rect2Y, 'jack-pj2')
+      .setScale(2.3)
+      .setSize(20, 32)
+      .setOffset(25, -1);
+
+    // Objeto inamovible
+    recuadro2.setImmovable(true);
+    // Evitar la acción de la gravedad
+    recuadro2.body.allowGravity = false;
 
     // Añadimos el televisor
     // Dimensiones
@@ -92,11 +99,11 @@ export default class Game extends Phaser.Scene {
     let armchairWidth = width / 11;
     let armchairHeight = height / 7.5;
     // Posición X
-    let armX = width / 5.5
+    let armX = width / 5.5;
     // Crear sillones
     let n = 0;
     for (let i = 0; i < 14; i++) {
-      console.log("bucle");
+      console.log('bucle');
       if (i < 7) {
         let armchair = this.add.rectangle(
           armX + i * (armchairWidth + 20), // Ajustar por cada rectangulo
@@ -118,55 +125,55 @@ export default class Game extends Phaser.Scene {
     }
 
     // Texto de los personajes
-    this.personaje1 = this.add.text(0, height / 4.88, "Jugador 1", {
-      fontSize: "16px",
-      fontFamily: "Arial Black, Gadget, sans-serif",
-      fill: "#4b5bab", // AZUL
-      fontWeight: "bold",
+    this.personaje1 = this.add.text(0, height / 4.88, 'Jugador 1', {
+      fontSize: '16px',
+      fontFamily: 'Arial Black, Gadget, sans-serif',
+      fill: '#b0305c', // ROJO
+      fontWeight: 'bold',
       padding: { x: 6, y: 3 },
-      backgroundColor: "#ffffff",
-      border: "60px solid #000000",
+      backgroundColor: '#ffffff',
+      border: '60px solid #000000',
     });
 
-    this.personaje2 = this.add.text(width /1.09 , height / 4.88, "Jugador 2", {
-      fontSize: "18px",
-      fontFamily: "Arial Black, Gadget, sans-serif",
-      fill: "#b0305c", // ROJO
-      fontWeight: "bold",
+    this.personaje2 = this.add.text(width / 1.09, height / 4.88, 'Jugador 2', {
+      fontSize: '18px',
+      fontFamily: 'Arial Black, Gadget, sans-serif',
+      fill: '#4b5bab', //  AZUL
+      fontWeight: 'bold',
       padding: { x: 6, y: 3 },
-      backgroundColor: "#ffffff",
-      border: "60px solid #000000",
+      backgroundColor: '#ffffff',
+      border: '60px solid #000000',
     });
 
     // Menu Button
     this.box = this.add
-      .text(5, height -45, "Menu", {
-        fontSize: "130px",
-        backgroundColor: "#ffffff",
-        color: "#000000",
+      .text(5, height - 45, 'Menu', {
+        fontSize: '130px',
+        backgroundColor: '#ffffff',
+        color: '#000000',
         padding: { x: 10, y: 5 },
-        border: "60px solid #000000",
+        border: '60px solid #000000',
       })
       .setInteractive();
     this.box.setScale(0.32);
-    this.box.on("pointerdown", () => this.toggleOptions());
+    this.box.on('pointerdown', () => this.toggleOptions());
 
     // Crear las opciones (inicialmente invisibles)
     this.options = [];
-    const optionTexts = ["Opción 1", "Opción 2", "Opción 3"];
+    const optionTexts = ['Opción 1', 'Opción 2', 'Opción 3'];
     for (let i = 0; i < optionTexts.length; i++) {
       let option = this.add
-        .text(5 , (height -66) + i * -42, optionTexts[i], {
-          fontSize: "100px",
-          backgroundColor: "#ffffff",
-          color: "#000000",
+        .text(5, height - 66 + i * -42, optionTexts[i], {
+          fontSize: '100px',
+          backgroundColor: '#ffffff',
+          color: '#000000',
           padding: { x: 10, y: 5 },
-          border: "80px solid #000000",
+          border: '80px solid #000000',
         })
         .setInteractive();
       option.visible = false;
       option.setScale(0.3);
-      option.on("pointerdown", () => this.toggleOption(option));
+      option.on('pointerdown', () => this.toggleOption(option));
       this.options.push(option);
     }
   }
@@ -204,7 +211,7 @@ export default class Game extends Phaser.Scene {
     // Activar o desactivar la opción
     option.setStyle({
       backgroundColor:
-        option.style.backgroundColor === "#ffffff" ? "#00ff00" : "#ffffff",
+        option.style.backgroundColor === '#ffffff' ? '#00ff00' : '#ffffff',
     });
   }
 }
