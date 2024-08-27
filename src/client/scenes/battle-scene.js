@@ -94,7 +94,6 @@ export default class BattleScene extends Phaser.Scene {
       this.addBigOne.setImmovable(true);
       // Evitar la acción de la gravedad
       this.addBigOne.body.allowGravity = false;
-
     }
 
     // Crear la barra más pequeña que se mueve 1
